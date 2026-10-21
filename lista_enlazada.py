@@ -22,3 +22,13 @@ def mostrar(cabeza):
         print(actual["dato"], end=" → ")
         actual = actual["siguiente"]
     print("None")
+
+def buscar(cabeza, dato):
+    actual = cabeza
+    posicion = 0
+    while actual is not None:
+        if actual["dato"] == dato:
+            return posicion
+        actual = actual["siguiente"]
+        posicion += 1
+    return -1
