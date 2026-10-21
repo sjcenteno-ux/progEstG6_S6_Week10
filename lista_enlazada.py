@@ -32,3 +32,26 @@ def buscar(cabeza, dato):
         actual = actual["siguiente"]
         posicion += 1
     return -1
+
+def eliminar(cabeza, dato):
+    if cabeza is None:
+        return None, False
+    if cabeza["dato"] == dato:
+        return cabeza["siguiente"], True
+    anterior = cabeza
+    actual = cabeza["siguiente"]
+    while actual is not None:
+        if actual["dato"] == dato:
+            anterior["siguiente"] = actual["siguiente"]
+            return cabeza, True
+        anterior = actual
+        actual = actual["siguiente"]
+    return cabeza, False
+
+def contar(cabeza):
+    total = 0
+    actual = cabeza
+    while actual is not None:
+        total += 1
+        actual = actual["siguiente"]
+    return total
