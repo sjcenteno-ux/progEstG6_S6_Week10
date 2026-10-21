@@ -55,3 +55,14 @@ def contar(cabeza):
         total += 1
         actual = actual["siguiente"]
     return total
+
+cabeza = None
+cabeza = insertar_final(cabeza, "Ana")
+cabeza = insertar_final(cabeza, "Luis")
+cabeza = insertar_inicio(cabeza, "Marta")
+mostrar(cabeza)
+print("Posición de Luis:", buscar(cabeza, "Luis"))
+cabeza, eliminado = eliminar(cabeza, "Ana")
+print("¿Se eliminó Ana?", eliminado)
+mostrar(cabeza)
+print("Total:", contar(cabeza))
