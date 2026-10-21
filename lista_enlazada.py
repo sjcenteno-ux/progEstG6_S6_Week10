@@ -15,3 +15,10 @@ def insertar_final(cabeza, dato):
         actual = actual["siguiente"]
     actual["siguiente"] = nuevo
     return cabeza
+
+def mostrar(cabeza):
+    actual = cabeza
+    while actual is not None:
+        print(actual["dato"], end=" → ")
+        actual = actual["siguiente"]
+    print("None")
