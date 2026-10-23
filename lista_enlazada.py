@@ -11,7 +11,7 @@ def insertarInicio(cabeza, dato):
 #si la cabeza esta vacia, no entraria al while porque no hay nodos en la lista enlazada y la cabeza seria el nuevo nodo que acabamos de crear.
 #definimos actual= cabeza para recorrer con un while la lista con elementos y si el siguiente no es None, actual cambia al siguiente, cuando se rompa el while.
 #actual["siguiente"] en vez de none, sera el nuevo y el nuevo lleva el dato y siguiente: None, asi no rompe la logica y se returna la cabeza, porque se inserto al final.
-def insertarFinal(dato, cabeza):
+def insertarFinal(cabeza, dato):
     nuevo = crearNodo(dato)
     if cabeza is None:
         return nuevo
@@ -43,7 +43,7 @@ def buscar(cabeza, dato):
     return -1
 
 #
-def eliminar(dato, cabeza):
+def eliminar(cabeza, dato):
     if cabeza is None:
         return None, False
     if cabeza["dato"] == dato:
@@ -57,7 +57,7 @@ def eliminar(dato, cabeza):
              anterior["siguiente"]= actual["siguiente"]
              return cabeza, True
 
-         anterior= actual["siguiente"]
+         anterior= actual
          actual= actual["siguiente"]
     return cabeza, False
 
@@ -68,6 +68,38 @@ def contar(cabeza):
         total += 1
         actual= actual["siguiente"]
     return total
+def atender(cabeza):
+    if cabeza is None:
+        return None, None
+
+    atendido= cabeza["dato"]
+    cabeza = cabeza["siguiente"]
+    return cabeza, atendido
+
+def insertar(cabeza, referencia,dato):
+    actual= cabeza
+    while actual is not None:
+        if actual["dato"] == referencia:
+         nuevo= crearNodo(dato)
+         nuevo["siguiente"] = actual["siguiente"]
+         actual["siguiente"]= nuevo
+         return cabeza, True 
+
+        actual= actual["siguiente"]
+
+    return cabeza, False
+
+def invertir(cabeza):
+    anterior= None
+    actual= cabeza
+
+    while actual is not None:
+        siguiente= actual["siguiente"]
+        actual["siguiente"] = anterior
+        anterior = actual
+        actual = siguiente
+    return anterior 
+     
 
 
 def menu():
@@ -80,6 +112,9 @@ def menu():
         print("3. Buscar turno")
         print("4. Eliminar turno")
         print("5. Contar turnos")
+        print("6. Atender primer turno")
+        print("7. Insentar despues de un estudiante")
+        print("8 Invertir lista")
         print("0. Salir")
 
         try:
@@ -126,14 +161,38 @@ def menu():
             elif opcion == 5:
                 print(f"Cantidad de turnos: {contar(cabeza)}")
 
+            elif opcion == 6:
+                cabeza, atendido = atender(cabeza)
+                if atendido is None:
+                    print("No hay estudiantes que atender")
+                else:
+                    print(f"Estudiante atendido:{atendido}")
+            elif opcion == 7:
+                referencia= input("Ingrese el nombre de referencia:").strip()
+                nombre= input("Ingrese el nombre del estudiante:").strip()
+
+                if not referencia or not nombre:
+                    print("Los nombres no pueden estar vacios")
+                else:
+                    cabeza, insertado= insertar(cabeza, referencia, nombre)
+
+                    if insertado:
+                        print("Estudiante insertado correctamente.")
+                    else:
+                        print("Estudiante de referencia no encontrado")
+            elif opcion == 8:
+                cabeza= invertir(cabeza)
+                print("Lista invertida.")
+
             elif opcion == 0:
                 print("Programa finalizado.")
                 break
 
             else:
-                print("Opcion invalida. Seleccione del 0 al 5.")
+                print("Opcion invalida. Seleccione del 0 al 8.")
 
         except ValueError:
             print("Error: debe ingresar un numero.")
 
 
+menu()
